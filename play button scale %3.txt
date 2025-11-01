@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyun</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .game-title {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .play-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.3s ease;
+            transform: scale(1);
+        }
+
+        .play-button img {
+            width: 200px;
+            height: auto;
+            display: block;
+        }
+
+        .play-button:hover {
+            transform: scale(1.03);
+        }
+
+        .play-button:active {
+            transform: scale(0.98);
+        }
+
+        .game-screen {
+            display: none;
+            color: white;
+            font-size: 24px;
+        }
+
+        .game-screen.active {
+            display: block;
+        }
+
+        .menu-screen.hidden {
+            display: none;
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 32px;
+        }
+
+        .restart-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            margin-top: 30px;
+        }
+
+        .restart-button:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu-screen" id="menuScreen">
+            <h1 class="game-title">🎮 OYUN 🎮</h1>
+            <button class="play-button" id="playButton">
+                <img src="https://raw.githubusercontent.com/unityortakproje/oyunlar1/main/play%20png.png" alt="Play Button">
+            </button>
+        </div>
+
+        <div class="game-screen" id="gameScreen">
+            <h2>Oyun Başladı! 🎉</h2>
+            <p>Oyun devam ediyor...</p>
+            <div class="score">Skor: <span id="score">0</span></div>
+            <button class="restart-button" id="restartButton">Yeniden Başlat</button>
+        </div>
+    </div>
+
+    <script>
+        const playButton = document.getElementById('playButton');
+        const restartButton = document.getElementById('restartButton');
+        const menuScreen = document.getElementById('menuScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const scoreElement = document.getElementById('score');
+
+        let score = 0;
+        let gameInterval;
+
+        function startGame() {
+            menuScreen.classList.add('hidden');
+            gameScreen.classList.add('active');
+            
+            score = 0;
+            scoreElement.textContent = score;
+            
+            gameInterval = setInterval(() => {
+                score += 10;
+                scoreElement.textContent = score;
+            }, 1000);
+            
+            console.log('Oyun başladı!');
+        }
+
+        function restartGame() {
+            clearInterval(gameInterval);
+            gameScreen.classList.remove('active');
+            menuScreen.classList.remove('hidden');
+            
+            console.log('Oyun menüye döndü');
+        }
+
+        playButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', restartGame);
+    </script>
+</body>
+</html>
